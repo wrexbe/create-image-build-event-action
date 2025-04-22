@@ -17,7 +17,7 @@ get_access_token() {
     --data-urlencode "audience=${UPWIND_API_ENDPOINT}" \
     --data-urlencode "client_id=${UPWIND_CLIENT_ID}" \
     --data-urlencode "client_secret=${UPWIND_CLIENT_SECRET}")
-    ACCESS_TOKEN=$(echo "$response" | jq -r '.access_token')
+    ACCESS_TOKEN=$(echo "$response" | jq -r 'try .access_token // empty')
     if [ -z "$ACCESS_TOKEN" ]; then
         echo "Error: Unable to obtain access token."
         exit 1
